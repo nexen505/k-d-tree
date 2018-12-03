@@ -13,8 +13,6 @@ using namespace std;
 class RandomVectorGenerator : public VectorGenerator {
 public:
     vector<double> generate(int dimension) override;
-
-    vector <vector<double>> generateList(int count, int dimension) override;
 };
 
 

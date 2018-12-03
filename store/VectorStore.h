@@ -13,6 +13,12 @@ class VectorStore {
 public:
     virtual void add(vector<double> v) = 0;
 
+    virtual void add(vector<vector<double>> vv) {
+        for (auto const &value: vv) {
+            add(value);
+        }
+    }
+
     virtual void search(vector<double> match) = 0;
 };
 

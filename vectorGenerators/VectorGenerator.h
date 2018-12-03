@@ -13,7 +13,13 @@ class VectorGenerator {
 public:
     virtual vector<double> generate(int dimension) = 0;
 
-    virtual vector <vector<double>> generateList(int count, int dimension) = 0;
+    virtual vector<vector<double>> generateList(int count, int dimension) {
+        vector<vector<double>> res;
+        for (int i = 0; i < count; ++i) {
+            res.push_back(generate(dimension));
+        }
+        return res;
+    };
 };
 
 

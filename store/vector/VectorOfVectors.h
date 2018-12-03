@@ -15,6 +15,8 @@ private:
 public:
     void add(vector<double> a) override;
 
+    void add(vector<vector<double>> vv) override;
+
     void search(vector<double> match) override;
 };
 

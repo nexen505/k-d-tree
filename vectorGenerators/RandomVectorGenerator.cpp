@@ -12,11 +12,3 @@ vector<double> RandomVectorGenerator::generate(const int dimension) {
     }
     return res;
 }
-
-vector <vector<double>> RandomVectorGenerator::generateList(const int count, const int dimension) {
-    vector <vector<double>> res;
-    for (int i = 0; i < count; ++i) {
-        res.push_back(generate(dimension));
-    }
-    return res;
-}
