@@ -6,8 +6,6 @@
 #include <ctime>
 #include "VectorOfVectors.h"
 
-using namespace std;
-
 void VectorOfVectors::add(vector<double> a) {
     v_arr.push_back(a);
 }

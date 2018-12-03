@@ -6,11 +6,11 @@
 #define CPP_K_D_TREE_VECTOROFVECTORS_H
 
 
-#include "VectorStore.h"
+#include "../VectorStore.h"
 
 class VectorOfVectors : public VectorStore {
 private:
-    vector <vector<double>> v_arr;
+    vector<vector<double>> v_arr;
 
 public:
     void add(vector<double> a) override;

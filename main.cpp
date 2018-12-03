@@ -2,7 +2,7 @@
 #include <locale.h>
 #include <iostream>
 #include <vector>
-#include "VectorOfVectors.h"
+#include "store/vector/VectorOfVectors.h"
 
 using namespace std;
 
