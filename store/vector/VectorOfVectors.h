@@ -8,16 +8,14 @@
 
 #include "../VectorStore.h"
 
-class VectorOfVectors : public VectorStore {
+class VectorOfVectors final : public VectorStore {
 private:
     vector<vector<double>> v_arr;
 
 public:
-    void add(vector<double> a) override;
+    VectorOfVectors(const vector<vector<double>> &vectors, int count, int dimension);
 
-    void add(vector<vector<double>> vv) override;
-
-    void search(vector<double> match) override;
+    vector<double> *search(const vector<double> &match) override;
 };
 
 

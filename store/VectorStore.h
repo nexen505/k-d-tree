@@ -10,16 +10,13 @@
 using namespace std;
 
 class VectorStore {
+protected:
+    int count, dimension;
 public:
-    virtual void add(vector<double> v) = 0;
+    VectorStore(const vector<vector<double>> &vectors, int count, int dimension) : count(count),
+                                                                                   dimension(dimension) {};
 
-    virtual void add(vector<vector<double>> vv) {
-        for (auto const &value: vv) {
-            add(value);
-        }
-    }
-
-    virtual void search(vector<double> match) = 0;
+    virtual vector<double> *search(const vector<double> &match) = 0;
 };
 
 

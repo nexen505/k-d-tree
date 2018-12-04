@@ -8,11 +8,31 @@
 
 #include "../VectorStore.h"
 
-class KdTree : public VectorStore {
-public:
-    void add(vector<double> v) override;
+struct kd_node_t {
+    vector<double> x;
+    struct kd_node_t *left{}, *right{};
 
-    void search(vector<double> match) override;
+    kd_node_t() = default;
+
+    explicit kd_node_t(vector<double> x, kd_node_t *left = nullptr, kd_node_t *right = nullptr) : x(std::move(x)),
+                                                                                                  left(left),
+                                                                                                  right(right) {}
+};
+
+class KdTree final : public VectorStore {
+private:
+    kd_node_t *root;
+
+    double dist(kd_node_t *a, kd_node_t *b);
+
+    kd_node_t *makeTree(kd_node_t *t, int len, int i);
+
+    void nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance);
+
+public:
+    KdTree(const vector<vector<double>> &vectors, int count, int dimension);
+
+    vector<double> *search(const vector<double> &match) override;
 };
 
 
