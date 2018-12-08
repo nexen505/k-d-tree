@@ -8,7 +8,10 @@
 
 #include "VectorGenerator.h"
 
-class CommandLineGenerator : public VectorGenerator {
+/**
+ * Generator that is based on user input.
+ */
+class CommandLineGenerator final : public VectorGenerator {
 public:
     vector<double> generate(int dimension) override;
 

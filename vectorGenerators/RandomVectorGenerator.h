@@ -10,7 +10,10 @@
 
 using namespace std;
 
-class RandomVectorGenerator : public VectorGenerator {
+/**
+ * Vector generator that is based on random numbers.
+ */
+class RandomVectorGenerator final : public VectorGenerator {
 public:
     vector<double> generate(int dimension) override;
 };

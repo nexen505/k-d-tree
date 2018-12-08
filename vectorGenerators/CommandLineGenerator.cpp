@@ -5,6 +5,11 @@
 #include <cstdio>
 #include "CommandLineGenerator.h"
 
+/**
+ * Generate vector by input coordinates.
+ * @param dimension - vector dimension
+ * @return input vector
+ */
 vector<double> CommandLineGenerator::generate(int dimension) {
     vector<double> v;
     for (int j = 0; j < dimension; j++) {
@@ -16,6 +21,12 @@ vector<double> CommandLineGenerator::generate(int dimension) {
     return v;
 }
 
+/**
+ * Generate vector by typing vectors.
+ * @param count - vectors count
+ * @param dimension - vector dimension
+ * @return vector of vectors
+ */
 vector<vector<double>> CommandLineGenerator::generateList(int count, int dimension) {
     vector<vector<double>> vectors;
     for (int i = 0; i < count; i++) {
