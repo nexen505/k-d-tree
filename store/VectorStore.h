@@ -12,7 +12,10 @@ using namespace std;
 class VectorStore {
 protected:
     int count, dimension;
+
 public:
+    virtual ~VectorStore() = default;
+
     VectorStore(const vector<vector<double>> &vectors, int count, int dimension) : count(count),
                                                                                    dimension(dimension) {};
 

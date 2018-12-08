@@ -13,6 +13,8 @@ private:
     vector<vector<double>> v_arr;
 
 public:
+    ~VectorOfVectors() override;
+
     VectorOfVectors(const vector<vector<double>> &vectors, int count, int dimension);
 
     vector<double> *search(const vector<double> &match) override;

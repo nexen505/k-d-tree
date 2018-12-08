@@ -17,6 +17,17 @@ struct kd_node_t {
     explicit kd_node_t(vector<double> x, kd_node_t *left = nullptr, kd_node_t *right = nullptr) : x(std::move(x)),
                                                                                                   left(left),
                                                                                                   right(right) {}
+
+    ~kd_node_t() {
+        if (left) {
+            free(left);
+        }
+        if (right) {
+            free(right);
+        }
+        left = nullptr;
+        right = nullptr;
+    }
 };
 
 class KdTree final : public VectorStore {
@@ -30,6 +41,8 @@ private:
     void nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance);
 
 public:
+    ~KdTree() override;
+
     KdTree(const vector<vector<double>> &vectors, int count, int dimension);
 
     vector<double> *search(const vector<double> &match) override;

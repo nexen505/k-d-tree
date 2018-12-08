@@ -3,6 +3,8 @@
 //
 
 #include <stdlib.h>
+#include <cmath>
+#include <iostream>
 #include "KdTree.h"
 
 void swap(struct kd_node_t *a, struct kd_node_t *b) {
@@ -43,7 +45,7 @@ KdTree::KdTree(const vector<vector<double>> &vectors, int count, int dimension) 
                                                                                               dimension) {
     auto *wp = new kd_node_t[count];
     for (int j = 0; j < count; ++j) {
-        wp[j].x = vectors[j];
+        wp[j].x = vector<double>(vectors[j]);
     }
     root = makeTree(wp, count, 0);
 }
@@ -64,8 +66,7 @@ kd_node_t *KdTree::makeTree(kd_node_t *t, int len, int i) {
 double KdTree::dist(kd_node_t *a, kd_node_t *b) {
     double t, d = 0;
     for (int i = 0; i < a->x.size(); ++i) {
-        t = a->x[i] - b->x[i];
-        d += t * t;
+        d += pow(a->x[i] - b->x[i], 2);
     }
     return d;
 }
@@ -93,4 +94,13 @@ vector<double> *KdTree::search(const vector<double> &match) {
 
     nearest(root, testNode, 0, &found, &best_dist);
     return best_dist != 0 ? nullptr : &found->x;
+}
+
+KdTree::~KdTree() {
+    std::cout << "KdTree is destroyed.." << endl;
+    if (root != nullptr) {
+        delete root->left;
+        delete root->right;
+        delete root;
+    }
 }

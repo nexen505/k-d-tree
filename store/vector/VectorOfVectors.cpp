@@ -5,12 +5,13 @@
 #include <cstdio>
 #include <sstream>
 #include <iterator>
+#include <iostream>
 #include "VectorOfVectors.h"
 
 VectorOfVectors::VectorOfVectors(const vector<vector<double>> &vectors, int count, int dimension) : VectorStore(vectors,
                                                                                                                 count,
                                                                                                                 dimension) {
-    this->v_arr = vectors;
+    this->v_arr = vector<vector<double>>(vectors);
 }
 
 vector<double> *VectorOfVectors::search(const vector<double> &match) {
@@ -25,4 +26,10 @@ vector<double> *VectorOfVectors::search(const vector<double> &match) {
     }
 
     return result;
+}
+
+VectorOfVectors::~VectorOfVectors() {
+    std::cout << "VectorOfVectors is destroyed.." << endl;
+    v_arr.clear();
+    v_arr.shrink_to_fit();
 }
