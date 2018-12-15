@@ -60,8 +60,9 @@ kd_node_t *find_median(kd_node_t *start, kd_node_t *end, int idx) {
 * @param count - count of vectors
 * @param dimension - vector dimension
 */
-KdTree::KdTree(const vector<vector<double>> &vectors, int count, int dimension) : VectorStore(vectors, count,
-                                                                                              dimension) {
+KdTree::KdTree(
+        const vector<vector<double>> &vectors, int count, int dimension, double *constructionTime
+) : VectorStore(vectors, count, dimension) {
     const clock_t start = clock();
     auto *wp = new kd_node_t[count];
     for (int i = 0; i < count; ++i) {
@@ -69,7 +70,7 @@ KdTree::KdTree(const vector<vector<double>> &vectors, int count, int dimension) 
     }
     root = makeTree(wp, count, 0);
     double duration = (clock() - start) / (double) CLOCKS_PER_SEC * 1e3;
-    printf("KdTree: construction time: %f ms\n", duration);
+    *constructionTime = duration;
 }
 
 /**

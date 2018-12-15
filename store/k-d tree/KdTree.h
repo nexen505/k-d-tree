@@ -88,8 +88,14 @@ private:
      * @param bestDistance - best distance pointer
      * @param visited - pointer to store visited vectors count
      */
-    void
-    nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance, int *visited);
+    void nearest(
+            kd_node_t *root,
+            kd_node_t *node,
+            int i,
+            kd_node_t **bestDistanced,
+            double *bestDistance,
+            int *visited
+    );
 
 public:
     /**
@@ -103,7 +109,7 @@ public:
      * @param count - count of vectors
      * @param dimension - vector dimension
      */
-    KdTree(const vector<vector<double>> &vectors, int count, int dimension);
+    KdTree(const vector<vector<double>> &vectors, int count, int dimension, double *constructionTime);
 
     /**
     * Find vector in store.
