@@ -34,12 +34,13 @@ int main(int argc, char *argv[]) {
         store = new VectorOfVectors(generatedList, count, dimension);
         printf("VectorOfVectors: count = %d, dimension = %d\n", count, dimension);
         clock_t start = clock();
-        searchResult = store->search(match);
+        int visited = 0;
+        searchResult = store->search(match, &visited);
         if (searchResult) {
             vvSearchResult = vector<double>(*searchResult);
         }
         double duration = (clock() - start) / (double) CLOCKS_PER_SEC * 1e3;
-        printf("VectorOfVectors: search time: %f ms\n", duration);
+        printf("VectorOfVectors: search time: %f ms, visited: %d of %d\n", duration, visited, count);
         vvDuration += duration;
         delete store;
 
@@ -47,13 +48,14 @@ int main(int argc, char *argv[]) {
         store = new KdTree(generatedList, count, dimension);
         printf("KdTree: count = %d, dimension = %d\n", count, dimension);
         start = clock();
-        searchResult = store->search(match);
+        visited = 0;
+        searchResult = store->search(match, &visited);
         if (searchResult) {
             kdTreeSearchResult = vector<double>(*searchResult);
         }
         assert(vvSearchResult == kdTreeSearchResult);
         duration = (clock() - start) / (double) CLOCKS_PER_SEC * 1e3;
-        printf("KdTree: search time: %f ms\n", duration);
+        printf("KdTree: search time: %f ms, visited: %d of %d\n", duration, visited, count);
         kdDuration += duration;
         delete store;
 

@@ -86,8 +86,10 @@ private:
      * @param i - index of coordinate to find median for
      * @param bestDistanced - pointer to store node with best distance
      * @param bestDistance - best distance pointer
+     * @param visited - pointer to store visited vectors count
      */
-    void nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance);
+    void
+    nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance, int *visited);
 
 public:
     /**
@@ -107,9 +109,10 @@ public:
     * Find vector in store.
     * If vector is not found, null is returned.
     * @param match  - vector to find
+    * @param visited - pointer to store visited vectors count
     * @return found vector or null otherwise
     */
-    vector<double> *search(const vector<double> &match) override;
+    vector<double> *search(const vector<double> &match, int *visited) override;
 };
 
 

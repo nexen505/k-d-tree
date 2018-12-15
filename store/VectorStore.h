@@ -39,9 +39,10 @@ public:
      * Find vector in store.
      * If vector is not found, null is returned.
      * @param match  - vector to find
+     * @param visited - pointer to store visited vectors count
      * @return found vector or null otherwise
      */
-    virtual vector<double> *search(const vector<double> &match) = 0;
+    virtual vector<double> *search(const vector<double> &match, int *visited) = 0;
 };
 
 

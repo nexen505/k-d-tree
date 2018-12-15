@@ -25,11 +25,12 @@ VectorOfVectors::VectorOfVectors(const vector<vector<double>> &vectors, int coun
  * @param match - vector to find
  * @return found vector or null otherwise
  */
-vector<double> *VectorOfVectors::search(const vector<double> &match) {
+vector<double> *VectorOfVectors::search(const vector<double> &match, int *visited) {
     vector<double> *result = nullptr;
 
     for (int i = 0; i < this->count; i++) {
         vector<double> vector = v_arr[i];
+        *visited += 1;
         if (vector == match) {
             result = &vector;
             break;

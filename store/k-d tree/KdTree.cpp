@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include <iostream>
+#include <ctime>
 #include "KdTree.h"
 
 /**
@@ -61,11 +62,14 @@ kd_node_t *find_median(kd_node_t *start, kd_node_t *end, int idx) {
 */
 KdTree::KdTree(const vector<vector<double>> &vectors, int count, int dimension) : VectorStore(vectors, count,
                                                                                               dimension) {
+    const clock_t start = clock();
     auto *wp = new kd_node_t[count];
     for (int i = 0; i < count; ++i) {
         wp[i].x = vector<double>(vectors[i]);
     }
     root = makeTree(wp, count, 0);
+    double duration = (clock() - start) / (double) CLOCKS_PER_SEC * 1e3;
+    printf("KdTree: construction time: %f ms\n", duration);
 }
 
 /**
@@ -110,10 +114,14 @@ double KdTree::dist(kd_node_t *a, kd_node_t *b) {
 * @param i - index of coordinate to find median for
 * @param bestDistanced - pointer to store node with best distance
 * @param bestDistance - best distance pointer
+* @param visited - pointer to store visited vectors count
 */
-void KdTree::nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance) {
+void KdTree::nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance,
+                     int *visited) {
     if (!root) return;
     double d = dist(root, node);
+
+    *visited += 1;
 
     if (!*bestDistanced || d < *bestDistance) { // updating best distance node and value
         *bestDistance = d;
@@ -123,22 +131,23 @@ void KdTree::nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDi
 
     i = (i + 1) % dimension;
     double dx = root->x[i] - node->x[i], dx2 = dx * dx;
-    nearest(dx > 0 ? root->left : root->right, node, i, bestDistanced, bestDistance);
+    nearest(dx > 0 ? root->left : root->right, node, i, bestDistanced, bestDistance, visited);
     if (dx2 >= *bestDistance) return;
-    nearest(dx > 0 ? root->right : root->left, node, i, bestDistanced, bestDistance);
+    nearest(dx > 0 ? root->right : root->left, node, i, bestDistanced, bestDistance, visited);
 }
 
 /**
  * Search for concrete node.
  * If it is not found, nullptr is returned.
  * @param match - vector to find
+ * @param visited - pointer to store visited vectors count
  * @return search result vector pointer or nullptr if it is not found
  */
-vector<double> *KdTree::search(const vector<double> &match) {
+vector<double> *KdTree::search(const vector<double> &match, int *visited) {
     kd_node_t *found = nullptr, *testNode = new kd_node_t(match);
     double best_dist;
 
-    nearest(root, testNode, 0, &found, &best_dist);
+    nearest(root, testNode, 0, &found, &best_dist, visited);
     return best_dist != 0 ? nullptr : &found->x;
 }
 
