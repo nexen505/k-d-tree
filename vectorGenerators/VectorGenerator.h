@@ -1,7 +1,3 @@
-//
-// Created by Ilia on 03.12.2018.
-//
-
 #ifndef CPP_K_D_TREE_VECTORGENERATOR_H
 #define CPP_K_D_TREE_VECTORGENERATOR_H
 
@@ -19,7 +15,7 @@ public:
      * @param dimension - vector dimension
      * @return generated vector
      */
-    virtual vector<double> generate(int dimension) = 0;
+    virtual vector<double> generate(unsigned int dimension) = 0;
 
     /**
      * Generate vector of vectors of concrete count and dimension.
@@ -27,7 +23,7 @@ public:
      * @param dimension - vector dimension
      * @return generated vector of vectors
      */
-    virtual vector<vector<double>> generateList(int count, int dimension) {
+    virtual vector<vector<double>> generateList(const unsigned int count, const unsigned int dimension) {
         vector<vector<double>> res;
         for (int i = 0; i < count; ++i) {
             res.push_back(generate(dimension));

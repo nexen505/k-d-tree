@@ -1,7 +1,3 @@
-//
-// Created by Ilia on 03.12.2018.
-//
-
 #ifndef CPP_K_D_TREE_COMMANDLINEGENERATOR_H
 #define CPP_K_D_TREE_COMMANDLINEGENERATOR_H
 
@@ -13,9 +9,9 @@
  */
 class CommandLineGenerator final : public VectorGenerator {
 public:
-    vector<double> generate(int dimension) override;
+    vector<double> generate(unsigned int dimension) override;
 
-    vector<vector<double>> generateList(int count, int dimension) override;
+    vector<vector<double>> generateList(unsigned int count, unsigned int dimension) override;
 };
 
 

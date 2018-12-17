@@ -1,7 +1,3 @@
-//
-// Created by Ilia on 03.12.2018.
-//
-
 #ifndef CPP_K_D_TREE_VECTOROFVECTORS_H
 #define CPP_K_D_TREE_VECTOROFVECTORS_H
 
@@ -30,7 +26,7 @@ public:
      * @param count - count of vectors
      * @param dimension - vector dimension
      */
-    VectorOfVectors(const vector<vector<double>> &vectors, int count, int dimension);
+    VectorOfVectors(const vector<vector<double>> &vectors, unsigned int count, unsigned int dimension);
 
     /**
     * Find vector in store.
@@ -39,7 +35,7 @@ public:
     * @param visited - pointer to store visited vectors count
     * @return found vector or null otherwise
     */
-    vector<double> *search(const vector<double> &match, int *visited) override;
+    vector<double> *search(const vector<double> &match, unsigned int *visited) override;
 };
 
 

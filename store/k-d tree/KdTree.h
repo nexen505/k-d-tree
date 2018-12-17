@@ -1,7 +1,3 @@
-//
-// Created by Ilia on 03.12.2018.
-//
-
 #ifndef CPP_K_D_TREE_KDTREE_H
 #define CPP_K_D_TREE_KDTREE_H
 
@@ -94,7 +90,7 @@ private:
             int i,
             kd_node_t **bestDistanced,
             double *bestDistance,
-            int *visited
+            unsigned int *visited
     );
 
 public:
@@ -109,7 +105,7 @@ public:
      * @param count - count of vectors
      * @param dimension - vector dimension
      */
-    KdTree(const vector<vector<double>> &vectors, int count, int dimension, double *constructionTime);
+    KdTree(const vector<vector<double>> &vectors, unsigned int count, unsigned int dimension, double *constructionTime);
 
     /**
     * Find vector in store.
@@ -118,7 +114,7 @@ public:
     * @param visited - pointer to store visited vectors count
     * @return found vector or null otherwise
     */
-    vector<double> *search(const vector<double> &match, int *visited) override;
+    vector<double> *search(const vector<double> &match, unsigned int *visited) override;
 };
 
 

@@ -1,7 +1,3 @@
-//
-// Created by Ilia on 03.12.2018.
-//
-
 #include <cstdio>
 #include <sstream>
 #include <iterator>
@@ -13,9 +9,13 @@
 * @param count - count of vectors
 * @param dimension - vector dimension
 */
-VectorOfVectors::VectorOfVectors(const vector<vector<double>> &vectors, int count, int dimension) : VectorStore(vectors,
-                                                                                                                count,
-                                                                                                                dimension) {
+VectorOfVectors::VectorOfVectors(
+        const vector<vector<double>> &vectors,
+        unsigned int count,
+        unsigned int dimension
+) : VectorStore(vectors,
+                count,
+                dimension) {
     this->v_arr = vector<vector<double>>(vectors);
 }
 
@@ -25,7 +25,7 @@ VectorOfVectors::VectorOfVectors(const vector<vector<double>> &vectors, int coun
  * @param match - vector to find
  * @return found vector or null otherwise
  */
-vector<double> *VectorOfVectors::search(const vector<double> &match, int *visited) {
+vector<double> *VectorOfVectors::search(const vector<double> &match, unsigned int *visited) {
     vector<double> *result = nullptr;
 
     for (int i = 0; i < this->count; i++) {

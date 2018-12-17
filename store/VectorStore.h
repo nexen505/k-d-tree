@@ -1,7 +1,3 @@
-//
-// Created by Ilia on 03.12.2018.
-//
-
 #ifndef CPP_K_D_TREE_VECTORCONTAINER_H
 #define CPP_K_D_TREE_VECTORCONTAINER_H
 
@@ -18,7 +14,7 @@ protected:
     /**
      * Count of stored vectors and its dimension.
      */
-    int count, dimension;
+    unsigned int count, dimension;
 
 public:
     /**
@@ -32,8 +28,12 @@ public:
      * @param count - count of vectors
      * @param dimension - vector dimension
      */
-    VectorStore(const vector<vector<double>> &vectors, int count, int dimension) : count(count),
-                                                                                   dimension(dimension) {};
+    VectorStore(
+            const vector<vector<double>> &vectors,
+            unsigned int count,
+            unsigned int dimension
+    ) : count(count),
+        dimension(dimension) {};
 
     /**
      * Find vector in store.
@@ -42,7 +42,7 @@ public:
      * @param visited - pointer to store visited vectors count
      * @return found vector or null otherwise
      */
-    virtual vector<double> *search(const vector<double> &match, int *visited) = 0;
+    virtual vector<double> *search(const vector<double> &match, unsigned int *visited) = 0;
 };
 
 

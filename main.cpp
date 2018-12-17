@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
-#include <cassert>
 #include "store/vector/VectorOfVectors.h"
 #include "vectorGenerators/CommandLineGenerator.h"
 #include "vectorGenerators/RandomVectorGenerator.h"
@@ -11,23 +10,23 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-//    int count = 1000000, dimension = 3;
-    int count = 0, dimension = 0;
+//    const unsigned int count = 1000000, dimension = 3;
+    unsigned int count = 0, dimension = 0;
     printf("Input vectors count: ");
     scanf("%d", &count);
     printf("Input vector dimension: ");
     scanf("%d", &dimension);
 
-    const int testsCount = 30;
+    const unsigned int testsCount = 30;
     double vvDuration = 0.0, kdDuration = 0.0, kdConstructionDuration = 0.0;
-    int vvVisited = 0, kdVisited = 0;
+    unsigned int vvVisited = 0, kdVisited = 0;
     RandomVectorGenerator vectorGenerator;
     VectorStore *store;
-    vector<double> *searchResult, vvSearchResult, kdTreeSearchResult;
 
     for (int i = 0; i < testsCount; i++) {
         // Generating list and vector to test search
         printf("Starting test %d...\n", i);
+        vector<double> *searchResult, vvSearchResult, kdTreeSearchResult = vvSearchResult;
         vector<vector<double>> generatedList = vectorGenerator.generateList(count, dimension);
         vector<double> match = vectorGenerator.generate(dimension);
 
@@ -35,7 +34,7 @@ int main(int argc, char *argv[]) {
         store = new VectorOfVectors(generatedList, count, dimension);
         printf("\tVectorOfVectors: count = %d, dimension = %d\n", count, dimension);
         clock_t start = clock();
-        int visited = 0;
+        unsigned int visited = 0;
         searchResult = store->search(match, &visited);
         if (searchResult) {
             vvSearchResult = vector<double>(*searchResult);
@@ -56,7 +55,6 @@ int main(int argc, char *argv[]) {
         if (searchResult) {
             kdTreeSearchResult = vector<double>(*searchResult);
         }
-        assert(vvSearchResult == kdTreeSearchResult);
         duration = (clock() - start) / (double) CLOCKS_PER_SEC * 1e3;
         printf("\tKdTree: construction time: %f ms\n", duration);
         printf("\tKdTree: search time: %f ms, visited: %d of %d\n", duration, visited, count);

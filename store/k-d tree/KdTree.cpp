@@ -1,7 +1,3 @@
-//
-// Created by Ilia on 03.12.2018.
-//
-
 #include <stdlib.h>
 #include <cmath>
 #include <iostream>
@@ -61,7 +57,7 @@ kd_node_t *find_median(kd_node_t *start, kd_node_t *end, int idx) {
 * @param dimension - vector dimension
 */
 KdTree::KdTree(
-        const vector<vector<double>> &vectors, int count, int dimension, double *constructionTime
+        const vector<vector<double>> &vectors, unsigned int count, unsigned int dimension, double *constructionTime
 ) : VectorStore(vectors, count, dimension) {
     const clock_t start = clock();
     auto *wp = new kd_node_t[count];
@@ -118,7 +114,7 @@ double KdTree::dist(kd_node_t *a, kd_node_t *b) {
 * @param visited - pointer to store visited vectors count
 */
 void KdTree::nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDistanced, double *bestDistance,
-                     int *visited) {
+                     unsigned int *visited) {
     if (!root) return;
     double d = dist(root, node);
 
@@ -144,7 +140,7 @@ void KdTree::nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDi
  * @param visited - pointer to store visited vectors count
  * @return search result vector pointer or nullptr if it is not found
  */
-vector<double> *KdTree::search(const vector<double> &match, int *visited) {
+vector<double> *KdTree::search(const vector<double> &match, unsigned int *visited) {
     kd_node_t *found = nullptr, *testNode = new kd_node_t(match);
     double best_dist;
 
