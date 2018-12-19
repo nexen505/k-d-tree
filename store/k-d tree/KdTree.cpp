@@ -124,13 +124,16 @@ void KdTree::nearest(kd_node_t *root, kd_node_t *node, int i, kd_node_t **bestDi
         *bestDistance = d;
         *bestDistanced = root;
     }
-    if (*bestDistance == 0) return;
+    if (*bestDistance == 0) return; // nothing better can be found
 
-    i = (i + 1) % dimension;
+    i = (i + 1) % dimension; // updating number of vector component that used to calculate difference
     double dx = root->x[i] - node->x[i], dx2 = dx * dx;
-    nearest(dx > 0 ? root->left : root->right, node, i, bestDistanced, bestDistance, visited);
-    if (dx2 >= *bestDistance) return;
-    nearest(dx > 0 ? root->right : root->left, node, i, bestDistanced, bestDistance, visited);
+    nearest(dx > 0 ? root->left : root->right, node, i, bestDistanced, bestDistance,
+            visited); // searching in left or right subtree depends on difference between root and node for i-th component
+    if (dx2 >= *bestDistance)
+        return; // if distance between root and node on i-th component is bigger than best distance, so nearest one is found
+    nearest(dx > 0 ? root->right : root->left, node, i, bestDistanced, bestDistance,
+            visited); // searching in opposite subtree if nearest was not found
 }
 
 /**
